@@ -8,7 +8,7 @@ JSON events in "events.jsonl.bz2" are loaded as pandas dataframe. Then the data 
 ### Data Transformation
 Data Transformation is done using dbt and can be found under transformed_data/models folder.
 - staging: Intermediate data transformations are created as views
-- marts:   Final analytics tables for the tasks a, b, c and d are created as a_device_session.sql, b_school_session.sql, c_device_usage_history.sql, and d_master_school.sql files respectively
+- marts:   Final analytics tables are created as a_device_session.sql, b_school_session.sql, c_device_usage_history.sql, and d_master_school.sql files respectively
 
 ### Basic Statistics
 From the four final tables, some basic descriptive statistics are derived as,
