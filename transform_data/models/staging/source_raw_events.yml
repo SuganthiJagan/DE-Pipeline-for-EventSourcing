@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw_events
+    database: challenge_suganthi  
+    schema: raw_data
+    tables:
+      - name: event_logs

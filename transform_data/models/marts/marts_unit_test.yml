@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: a_device_session
+    description: "Table describes when device has first logged its session"
+    columns:
+      - name: device_id
+        description: "device identifier"
+        tests:
+          - unique
+          - not_null
+      - name: first_session_start_time
+        description: "time at which the device logged its first session"
+        tests:
+          - not_null
+
+  - name: b_school_session
+    description: "Table describes every session that school device has logged in"
+    columns:
+      - name: session_id
+        description: "session identifier"
+        tests:
+          - not_null
+      - name: session_start_time
+        description: "the time when the session started"
+        tests:
+          - not_null
+      - name: session_end_time
+        description: "the time when the session ended"
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= session_start_time'
+      - name: school_name
+        description:: "the name of the school when session was planned"
+        tests:
+          - not_null
+    
+  - name: c_device_usage_history
+    description: "Table describes device usage history"
+    columns:
+      - name: device_id
+        description: "device identifier"
+        tests:
+          - not_null
+      - name: date
+        description: "the date where the device was used"
+        tests:
+          - not_null
+      - name: usage_minutes
+        description: "total time the device was used on that day"
+        tests:
+          - not_null
+      - name: avg_usage_minutes_7d
+        description:: "average usage minutes for the past 7 days"
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+
+  - name: d_master_school
+    description: "Table describes school details and its session and device statistics"
+    columns:
+      - name: school_id
+        description: "school identifier"
+        tests:
+          - not_null
+      - name: school_name
+        description: "the name of the school"
+        tests:
+          - not_null
+          - unique
+      - name: device_count
+        description: "total number of devices in the school"
+        tests:
+          - not_null
+      - name: mean_session_length
+        description:: "average school session length"
+        tests:
+          - not_null
+      - name: median_session_length
+        description:: "median school session length"
+        tests:
+          - not_null
+
+              

@@ -1,0 +1,15 @@
+
+EventSource:
+  target: dev
+  outputs:
+    dev:
+      type: redshift
+      host: TBA
+      user: TBA
+      password: TBA
+      dbname: TBA
+      schema: public
+      port: 5439
+      sslmode: verify-full # can be only 'verify-ca' if connecting from secure known network
+      autocommit: true
+      threads: 4

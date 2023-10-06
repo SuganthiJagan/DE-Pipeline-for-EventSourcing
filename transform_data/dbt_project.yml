@@ -1,0 +1,36 @@
+name: 'EventSource'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'EventSource'
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+macro-paths: ["macros"]
+
+packages-install-path: dbt-packages
+
+# directories to be removed by `dbt clean`
+clean-targets:         
+  - "target"
+  - "dbt_packages"
+  - "logs"
+
+on-run-start:
+    - "CREATE SCHEMA IF NOT EXISTS prepared_data"
+    - "CREATE SCHEMA IF NOT EXISTS transformed_data"
+
+models:
+  EventSource:
+    staging:
+      +database: "TBA"
+      +schema: "prepared_data"
+      +materialized: view
+      +tags: ["schools", "prepared", "log_events"]
+
+    marts:
+      +database: "TBA"
+      +schema: "transformed_data"
+      +materialized: table
+      +tags: ["schools", "transformed", "bi"]
